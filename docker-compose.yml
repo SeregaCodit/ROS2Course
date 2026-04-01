@@ -1,0 +1,31 @@
+services:
+  ros_dev:
+    build:
+      context: .
+      args:
+        - USERNAME=pivden
+        - USER_UID=1000
+        - USER_GID=1000
+    container_name: ros2_jazzy_course_container
+    network_mode: host
+    ipc: host
+    privileged: true
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+    volumes:
+      # Монтуємо вашу папку з кодом всередину контейнера
+      - ./src:/home/pivden/ros2_ws/src
+      # Для доступу до графіки X11
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    # Доступ до GPU (якщо Nvidia)
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    stdin_open: true
+    tty: true
+    command: /bin/bash

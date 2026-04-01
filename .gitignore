@@ -1,0 +1,13 @@
+# ROS 2 build folders
+build/
+install/
+log/
+
+# VS Code junk
+.vscode/*.db
+.vscode/*.db-shm
+.vscode/*.db-wal
+
+# Python junk
+__pycache__/
+*.pyc
